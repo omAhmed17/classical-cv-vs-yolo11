@@ -24,7 +24,7 @@ app = FastAPI(
 MODEL_PATH = PROJECT_ROOT / "deep_learning" / "runs" / "shape_color_yolo-3" / "weights" / "best.pt"
 
 # Replace this URL with your actual Hugging Face model URL after uploading best.pt
-HF_MODEL_URL = "https://huggingface.co/omAhmed17/shape-color-yolo11/resolve/main/best.pt"
+HF_MODEL_URL = "https://huggingface.co/omarerlasheedy/shape-color/resolve/main/best.pt"
 
 if not MODEL_PATH.exists():
     print("Downloading YOLO model weights...")
