@@ -1,6 +1,5 @@
 import sys
 import time
-import urllib.request
 import cv2 as cv
 import numpy as np
 from fastapi import FastAPI, UploadFile, File
@@ -9,12 +8,10 @@ from ultralytics import YOLO
 import uvicorn
 from pathlib import Path
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from classical_cv.classical_detector import detect_objects
-
 
 app = FastAPI(
     title="Shape & Color Sorting API - Model Comparison",
@@ -23,22 +20,12 @@ app = FastAPI(
 
 MODEL_PATH = PROJECT_ROOT / "deep_learning" / "runs" / "shape_color_yolo-3" / "weights" / "best.pt"
 
-# Replace this URL with your actual Hugging Face model URL after uploading best.pt
-HF_MODEL_URL = "https://huggingface.co/omarerlasheedy/shape-color/resolve/main/best.pt"
-
-if not MODEL_PATH.exists():
-    print("Downloading YOLO model weights...")
-    MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
-    urllib.request.urlretrieve(HF_MODEL_URL, MODEL_PATH)
-    print("Download complete.")
-
 try:
     model = YOLO(str(MODEL_PATH))
-    print("Model loaded.")
+    print(" done!")
 except Exception as e:
-    print(f"Error loading model: {e}")
+    print(f"Error loading: {e}")
     model = None
-
 
 
 @app.post("/predict/deep_learning", tags=["Models"])
